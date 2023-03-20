@@ -21,6 +21,17 @@ class BirdsController < ApplicationController
       render json: { error: "Bird not found" }, status: :not_found
     end
   end
+  #DELETE /birds/:id
+  def destroy
+    bird = Bird.find_by(id: params[:id])
+    if bird
+      bird.destroy
+      # render json: {} you can use this instead of the no content line
+      head :no_content # we are not rendering a JSON response butreturning head no content if our ird was successfull deleted
+    else
+      render json: { error: "Bird not found" }, status: :not_found
+    end
+  end
 
   # PATCH /birds/:id
   def update
